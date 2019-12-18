@@ -5,7 +5,6 @@ import {createStackNavigator} from 'react-navigation-stack'
 
 
 import Login from './src/components/Login'
-import Chat from './src/components/Chat';
 
 
 const App = createAppContainer(createStackNavigator({
@@ -15,12 +14,6 @@ const App = createAppContainer(createStackNavigator({
       header : null
     }
   },
-  Chat: {
-    screen: Chat,
-    navigationOptions:{
-      header : null
-    }
-  }
 }));
 
 
