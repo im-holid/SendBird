@@ -19,7 +19,7 @@ class Login extends Component {
         }
     }
 
-    instanceSendbird=(sb)=>{
+    instanceSendbird=(sb)=>{ //assign to sendbird js
         if(sb == null){
             return new Promise((resolve, reject)=>{
                 resolve(sb = new SendBird({appId:'BB294A9F-716E-4D66-AA81-06AE5CDC7B1B'}))
@@ -32,7 +32,7 @@ class Login extends Component {
         }
     }
 
-    connectSendBird=(sb)=>{
+    connectSendBird=(sb)=>{ //connect to sendbird
         return new Promise((resolve, reject)=>{
             if(sb){
                 sb.connect('ABCD',(user, error)=>{
@@ -53,7 +53,7 @@ class Login extends Component {
         })
     }
 
-    updateNickName=(sb)=>{
+    updateNickName=(sb)=>{ //only update it's nickname
         return new Promise((resolve, reject)=>{
             sb.updateCurrentUserInfo('NICKNAME', null,(response, error)=>{
                 if(response){
@@ -63,7 +63,7 @@ class Login extends Component {
         })
     }
 
-    storeSendBird=(sb)=>{
+    storeSendBird=(sb)=>{ //storing sendbird value to local variable
         return new Promise((resolve, reject)=>{
             if(this.sb==null){
                 this.sb = sb
@@ -74,7 +74,7 @@ class Login extends Component {
         })
     }
 
-    createGroup=(sb)=>{
+    createGroup=(sb)=>{ //create group with static data user
         return new Promise((resolve, reject)=>{
             if(sb){
                 var userIds = ['10','ABCD']
@@ -87,7 +87,7 @@ class Login extends Component {
         })
     }
 
-    storeGroup=(group)=>{
+    storeGroup=(group)=>{ //storing group value to local variable
         return new Promise((resolve, reject)=>{
             if(this.groupChannel==null){
                 this.groupChannel=group
@@ -96,7 +96,7 @@ class Login extends Component {
         })
     }
 
-    messageReceived=()=>{
+    messageReceived=()=>{ //handler for onMessageReceived
         if(this.sb){
             var ChannelHandler = new this.sb.ChannelHandler()
             ChannelHandler.onMessageReceived = (channel, message)=>{
@@ -107,7 +107,7 @@ class Login extends Component {
         }
     }
 
-    loadPrevMessage=(group, init=false)=>{
+    loadPrevMessage=(group, init=false)=>{  //method to load older message if init==true it's assign new value to local variable this.messageQuery
         if(this.messageQuery==null&&init){
             this.messageQuery = group.createPreviousMessageListQuery()
         }
@@ -123,7 +123,7 @@ class Login extends Component {
         }
     }
 
-    sendMessage=(data)=>{
+    sendMessage=(data)=>{ //method for send message
         if(data!=''){
             return new Promise((resolve, reject)=>{
             const params = new this.sb.UserMessageParams()
@@ -144,7 +144,7 @@ class Login extends Component {
         }
     }
 
-    firstMount=()=>{
+    firstMount=()=>{ //same like componentDidMount but it will call this function everytime screen loaded using react-navigation
         this.setState({load:false})
                 this.instanceSendbird(this.sb).then((sb)=>{
                     return this.connectSendBird(sb)
@@ -174,7 +174,8 @@ class Login extends Component {
                         this.firstMount()
                     }}
                 />
-                <TouchableOpacity
+                <TouchableOpacity 
+                    //For load older message, just to make it as simple as possible
                     style={{
                         justifyContent  :   'center',
                         backgroundColor :   '#00aa00',
@@ -253,6 +254,7 @@ class Login extends Component {
                         />
                     </View>
                     <TouchableOpacity
+                        //sendMessage button function
                         style={{
                             flex            :   2,
                             backgroundColor :   'rgba(0,0,255,0.5)',
